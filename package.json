@@ -1,0 +1,85 @@
+{
+  "name": "genesis-migration",
+  "version": "1.0.0",
+  "description": "Misc smart contracts used on the LEND -> AAVE migration",
+  "scripts": {
+    "run-env": "tail -f /dev/null",
+    "buidler": "buidler",
+    "buidler-kovan": "buidler --network kovan",
+    "buidler-ropsten": "buidler --network ropsten",
+    "buidler-main": "buidler --network main",
+    "buidler help": "buidler help",
+    "compile": "SKIP_TASKS=true buidler compile --force",
+    "types-gen": "npm run compile && typechain --target ethers-v5 --outDir ./types './artifacts/*.json'",
+    "test-fork": "buidler test --network ganacheMainnetFork ./test/mainnet.spec.ts",
+    "test": "buidler test",
+    "coverage": "buidler coverage --network coverage",
+    "dev:prettier": "prettier --write .",
+    "ci:test": "npm run compile && npm run types-gen && npm run test",
+    "ci:clean": "rm -rf ./artifacts ./cache ./types",
+    "dev:deploy": "buidler dev-deploy",
+    "kovan:deploy:vault": "npm run buidler-kovan deploy-vault -- --verify",
+    "kovan:deploy:aave-strategy": "npm run buidler-kovan deploy-aave-strategy -- --verify",
+    "kovan:deploy:payload": "npm run buidler-kovan deploy-payload -- --verify",
+    "ropsten:deploy:vault": "npm run buidler-ropsten deploy-vault -- --verify",
+    "ropsten:deploy:aave-strategy": "npm run buidler-ropsten deploy-aave-strategy -- --verify",
+    "ropsten:deploy:payload": "npm run buidler-ropsten deploy-payload -- --verify",
+    "main:deploy:vault": "npm run buidler-main deploy-vault -- --verify",
+    "main:deploy:aave-strategy": "npm run buidler-main deploy-aave-strategy -- --verify",
+    "main:deploy:payload": "npm run buidler-main deploy-payload -- --verify"
+  },
+  "devDependencies": {
+    "@nomiclabs/buidler": "^1.4.7",
+    "@nomiclabs/buidler-ethers": "2.0.0",
+    "@nomiclabs/buidler-etherscan": "^2.1.0",
+    "@nomiclabs/buidler-waffle": "2.0.0",
+    "@openzeppelin/contracts": "3.1.0",
+    "@typechain/ethers-v4": "1.0.0",
+    "@typechain/ethers-v5": "^1.0.0",
+    "@typechain/truffle-v4": "2.0.2",
+    "@typechain/truffle-v5": "2.0.2",
+    "@typechain/web3-v1": "1.0.0",
+    "@types/chai": "4.2.11",
+    "@types/lowdb": "1.0.9",
+    "@types/mocha": "7.0.2",
+    "@types/node": "14.0.5",
+    "bignumber.js": "9.0.0",
+    "bs58": "^4.0.1",
+    "buidler-gas-reporter": "^0.1.3",
+    "buidler-typechain": "0.1.1",
+    "chai": "4.2.0",
+    "chai-bignumber": "3.0.0",
+    "chai-bn": "^0.2.1",
+    "ethereum-waffle": "3.0.2",
+    "ethers": "5.0.8",
+    "husky": "^4.2.5",
+    "lowdb": "1.0.0",
+    "prettier": "^2.0.5",
+    "prettier-plugin-solidity": "^1.0.0-alpha.53",
+    "pretty-quick": "^2.0.1",
+    "solidity-coverage": "0.7.10",
+    "ts-generator": "0.0.8",
+    "ts-node": "8.10.2",
+    "tslint": "^6.1.2",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-plugin-prettier": "^2.3.0",
+    "typechain": "2.0.0",
+    "typescript": "3.9.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
+  "author": "Aave",
+  "contributors": [
+    {
+      "name": "Ernesto Boado",
+      "email": "ernesto@aave.com"
+    }
+  ],
+  "license": "AGPLv3",
+  "dependencies": {
+    "tmp-promise": "^3.0.2"
+  }
+}

@@ -1,0 +1,40 @@
+version: '3.5'
+
+services:
+  contracts-env:
+    image: node:13
+    working_dir: /src
+    command: npm run run-env
+    volumes:
+      - ./:/src
+    depends_on:
+      - ganacheMainnetFork
+    environment:
+      MNEMONIC: ${MNEMONIC}
+      ETHERSCAN_KEY: ${ETHERSCAN_KEY}
+      INFURA_KEY: ${INFURA_KEY}
+      ETHERSCAN_NETWORK: ${ETHERSCAN_NETWORK}
+
+  ganacheMainnetFork:
+    image: trufflesuite/ganache-cli:latest
+    command:
+      [
+        'ganache-cli',
+        '--fork',
+#        ADD_PROVIDER_URL_HERE,
+        '--gasLimit',
+        '12500000',
+        '--hardfork',
+        'istanbul',
+        '--networkId',
+        '1010',
+        '--secure',
+        '--unlock',
+        '0x3dfd23a6c5e8bbcfc9581d2e864a68feb6a076d3',
+        '--unlock',
+        '0xbe0eb53f46cd790cd13851d5eff43d12404d33e8',
+        '--unlock',
+        '0xf977814e90da44bfa03b6295a0616a897441acec',
+        '--unlock',
+        '0xB9062896ec3A615a4e4444DF183F0531a77218AE',
+      ]
